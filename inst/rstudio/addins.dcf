@@ -1,0 +1,118 @@
+
+Name: Str
+Title: Run str on the current selection
+Description: Run DescTools command Str on the current selection
+Binding: Str
+Interactive: false
+
+
+Name: Abstract
+Title: Run Abstract on the current selection
+Description: Run DescTools command Abstract on the current selection
+Binding: Abstract
+Interactive: false
+
+
+Name: Summary
+Title: Run summary on the current selection
+Description: Run R command summary on the current selection
+Binding: Summary
+Interactive: false
+
+
+Name: Head
+Title: Run R-command head on the current selection
+Description: Run R-command head on the current selection
+Binding: Head
+Interactive: false
+
+Name: Example
+Title: Run R-command example on the current selection
+Description: Run R-command example on the current selection
+Binding: Example
+Interactive: false
+
+
+Name: Some
+Title: Run DescTools command Some on the current selection
+Description: Run DescTools command Some on the current selection
+Binding: Some
+Interactive: false
+
+
+Name: Desc
+Title: Run Desc on the current selection
+Description: Run Desc on the current selection
+Binding: Desc
+Interactive: false
+
+Name: Select
+Title: Run SelectVarDlg on the current selection
+Description: Run SelectVarDlg on the current selection
+Binding: Select
+Interactive: true
+
+
+Name: BuildModel
+Title: Run ModelDlg on the current selection
+Description: Run ModelDlg on the current selection
+Binding: BuildModel
+Interactive: true
+
+
+
+Name: Plot
+Title: Run plot on the current selection
+Description: Run plot on the current selection
+Binding: Plot
+Interactive: false
+
+Name: Save
+Title: Display filedialog and save selected object
+Description: Save current selection as object
+Binding: Save
+Interactive: true
+
+Name: XLView
+Title: View selected object in XL
+Description: View selected object in XL
+Binding: XLView
+Interactive: false
+
+Name: IntView
+Title: View selected object with internal viewer
+Description: View selected object with internal viewer
+Binding: IntView
+Interactive: false
+
+Name: FileOpen
+Title: Get the path of a file to open and insert in code
+Description: Get path of a file
+Binding: FileOpen
+Interactive: true
+
+Name: FlipBackSlash
+Title: Replace all backslashes in the selected text by simple slashes
+Description: Replace all backslashes in the selected text by simple slashes
+Binding: FlipBackSlash
+Interactive: true
+
+Name: SetArrow
+Title: Place an arrow in a plot
+Description: Place an arrow in a plot and insert code into source file
+Binding: SetArrow
+Interactive: true
+
+Name: Enquote
+Title: Replace line breaks by commas, while enquoting the parts
+Description: Replace all the line breaks in the selected text by commas and enquote the parts
+Binding: Enquote
+Interactive: true
+
+Name: EvalEnquote
+Title: Evaluate the selection, enquotes the parts and paste together
+Description: Evaluate the selection, enquotes the parts and paste together
+Binding: EvalEnquote
+Interactive: true
+
+
