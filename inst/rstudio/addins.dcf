@@ -20,6 +20,13 @@ Binding: Summary
 Interactive: false
 
 
+Name: Fix
+Title: Run fix on the current selection
+Description: Takes the selection (typically a data.frame) and invokes edit on it. Then the new (edited) version of the data.frame is assigned in the user's workspace.
+Binding: Fix
+Interactive: false
+
+
 Name: Head
 Title: Run R-command head on the current selection
 Description: Run R-command head on the current selection
@@ -113,6 +120,13 @@ Name: EvalEnquote
 Title: Evaluate the selection, enquotes the parts and paste together
 Description: Evaluate the selection, enquotes the parts and paste together
 Binding: EvalEnquote
+Interactive: true
+
+
+Name: NewMatrix
+Title: Creates a new Matrix in the edit window
+Description: Inserts the designed matrix
+Binding: NewMatrix
 Interactive: true
 
 

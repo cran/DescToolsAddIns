@@ -42,6 +42,17 @@ Summary <- function(){
 }
 
 
+Fix <- function(){
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    rstudioapi::sendToConsole(gettextf("fix(%s)", sel))
+  } else {
+    cat("No selection!\n")
+  }
+}
+
+
+
 Desc <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
@@ -222,6 +233,24 @@ EvalEnquote <- function(){
     cat("No selection!\n")
   }
 
+
+}
+
+
+
+
+NewMatrix <- function(){
+
+  m <- edit(data.frame())
+  m <- as.matrix(m)
+
+  if(!all(dimnames(m)[[2]] == paste("var", 1:length(dimnames(m)[[2]]), sep="")))
+    dnames <- gettextf(", \n       dimnames=list(%s)", toString(dimnames(m)))
+  else
+    dnames <- ""
+
+  txt <- gettextf("m <- matrix(c(%s), nrow=%s%s)\n", toString(m), dim(m)[1], dnames)
+  rstudioapi::insertText(txt)
 
 }
 

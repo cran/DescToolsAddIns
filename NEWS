@@ -1,5 +1,15 @@
-DescTools 0.9 (2017-04-19)
------------------------------
+
+
+DescToolsAddIns 0.91 (2017-06-29)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+   * Fix() for directly editing a data.frame.
+   * NewMatrix() invokes edit() to create a matrix.
+
+
+DescToolsAddIns 0.9 (2017-04-19)
+--------------------------------
 
    * first version published on CRAN - 2017-04-19
 

@@ -18,6 +18,8 @@
 \alias{Enquote}
 \alias{EvalEnquote}
 \alias{BuildModel}
+\alias{Fix}
+\alias{NewMatrix}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{A Handful AddIns to Be Used as Shortcuts in RStudio
@@ -50,6 +52,8 @@ FlipBackSlash()
 SetArrow()
 Enquote()
 EvalEnquote()
+Fix()
+NewMatrix()
 }
 
 \details{
