@@ -1,5 +1,18 @@
 
 
+DescToolsAddIns 0.92 (2017-11-25)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+   * PlotD() will plot(Desc()) objects.
+
+UPDATED FUNCTIONS:
+   * Plot() will now do what has been promised, namely just plot objects.
+   * Select() can by now also be used to select point characters (pch),
+     colors (col) and filenames/-paths (fn, path, file) based on the selection.
+
+
+
 DescToolsAddIns 0.91 (2017-06-29)
 ---------------------------------
 

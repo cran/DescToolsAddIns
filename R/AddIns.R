@@ -63,6 +63,7 @@ Desc <- function(){
 }
 
 
+
 Select <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
@@ -72,13 +73,17 @@ Select <- function(){
     } else if(sel=="col"){
         txt <- eval(parse(text="ColPicker(newwin=TRUE)"))
         dev.off()
-        opt <- options(useFancyQuotes=FALSE); on.exit(options(opt))
-        rstudioapi::insertText(gettextf("col=c(%s)", paste(dQuote(txt), collapse=", ")))
+        rstudioapi::insertText(gettextf("col=c(%s)", paste(shQuote(txt), collapse=", ")))
+
+    } else if(sel %in% c("path", "fn", "file")) {
+      txt <- eval(parse(text="FileOpenCmd(fmt='%path%%fname%.%ext%')"))
+      if(txt != "")
+        rstudioapi::insertText(gettextf("%s=%s", sel, shQuote(txt)))
 
     } else {
       if(sel != ""){
         txt <- eval(parse(text=gettextf("SelectVarDlg(%s)", sel)))
-        rstudioapi::insertText(txt)
+        if(txt != "") rstudioapi::insertText(txt)
       }
     }
   } else {
@@ -106,12 +111,21 @@ BuildModel <- function(){
 Plot <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel))
+    rstudioapi::sendToConsole(gettextf("plot(%s)", sel))
   } else {
     cat("No selection!\n")
   }
 }
 
+
+PlotD <- function(){
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel))
+  } else {
+    cat("No selection!\n")
+  }
+}
 
 Head <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
@@ -202,10 +216,7 @@ Enquote <- function(){
 
   txt <- getActiveDocumentContext()$selection[[1]]$text
   if(txt != "") {
-    opt <- options(useFancyQuotes=FALSE)
-    on.exit(options(opt))
-
-    txt <- paste(dQuote(strsplit(txt, split="\n")[[1]]), collapse=",")
+    txt <- paste(shQuote(strsplit(txt, split="\n")[[1]]), collapse=",")
     rstudioapi::modifyRange(txt)
 
   } else {
@@ -223,10 +234,7 @@ EvalEnquote <- function(){
 
     txt <- eval(parse(text=txt))
 
-    opt <- options(useFancyQuotes=FALSE)
-    on.exit(options(opt))
-
-    txt <- paste(dQuote(txt), collapse=",")
+    txt <- paste(shQuote(txt), collapse=",")
     rstudioapi::modifyRange(txt)
 
   } else {
@@ -239,17 +247,39 @@ EvalEnquote <- function(){
 
 
 
-NewMatrix <- function(){
+NewObject <- function(){
+
+  obj <- getActiveDocumentContext()$selection[[1]]$text
+  if(obj == "") obj <- "m"
 
   m <- edit(data.frame())
-  m <- as.matrix(m)
 
-  if(!all(dimnames(m)[[2]] == paste("var", 1:length(dimnames(m)[[2]]), sep="")))
-    dnames <- gettextf(", \n       dimnames=list(%s)", toString(dimnames(m)))
-  else
-    dnames <- ""
+  switch(obj,
+     "m" = {
+        m <- as.matrix(m)
 
-  txt <- gettextf("m <- matrix(c(%s), nrow=%s%s)\n", toString(m), dim(m)[1], dnames)
+        if(!all(dimnames(m)[[2]] == paste("var", 1:length(dimnames(m)[[2]]), sep="")))
+          dnames <- gettextf(", \n       dimnames=list(%s)", toString(dimnames(m)))
+        else
+          dnames <- ""
+
+        if(!is.numeric(m))
+          m[!is.na(m)] <- shQuote(m[!is.na(m)])
+
+        txt <- gettextf("m <- matrix(c(%s), nrow=%s%s)\n",
+                        toString(m), dim(m)[1], dnames)
+      },
+     "c"={
+       m <- as.vector(m)
+       txt <- gettextf("v <- %s\n", toString(m))
+
+     },
+     "d"={
+       txt <- paste("d <- data.frame(", paste(names(m), "=", m, collapse = ", "), ")\n", sep="")
+       # genuine data.frame
+     }
+  )
+
   rstudioapi::insertText(txt)
 
 }

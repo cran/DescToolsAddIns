@@ -9,6 +9,7 @@
 \alias{Desc}
 \alias{Select}
 \alias{Plot}
+\alias{PlotD}
 \alias{Save}
 \alias{XLView}
 \alias{IntView}
@@ -19,19 +20,19 @@
 \alias{EvalEnquote}
 \alias{BuildModel}
 \alias{Fix}
-\alias{NewMatrix}
+\alias{NewObject}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{A Handful AddIns to Be Used as Shortcuts in RStudio
+\title{Some Functions to be Used as Shortcuts in 'RStudio'
 %%  ~~function to do ... ~~
 }
 \description{
-A simply great new feature in RStudio is the option to define AddIns and bind shortcuts to them.
-This package contains AddIns for a few most used functions
-in an analysts (at least mine) daily work (like \code{str()}, \code{example()}, \code{plot()}, \code{head()}, \code{view()}, \code{Desc()}).\cr
-Most of these functions will get the current selection in RStudios editor window and send the specific command to the console
-while instantly executing it.
-Assigning shortcuts to these AddIns will spare you quite a few keystrokes and bring a breeze of GUI-interaction into your life.
+A simply great new feature in RStudio is the option to define add-ins and bind shortcuts to them.
+This package includes add-ins for some of the most frequently used functions
+in a data scientist's (at least mine) daily work (like \code{str()}, \code{example()}, \code{plot()}, \code{head()}, \code{view()}, \code{Desc()}).\cr
+Most of these functions use the current selection in RStudios source panel and send the specific command to the console
+where it will be executed immediately.
+Assigning shortcuts to these add-ins saves you quite a few keystrokes and brings a breeze of GUI-interaction into your life.
 }
 \usage{
 Str()
@@ -44,6 +45,7 @@ Example()
 Select()
 BuildModel()
 Plot()
+PlotD()
 Save()
 XLView()
 IntView()
@@ -53,30 +55,32 @@ SetArrow()
 Enquote()
 EvalEnquote()
 Fix()
-NewMatrix()
+NewObject()
 }
 
 \details{
-The following AddIns are available:
+The following add-ins are available:
 \itemize{
     \item \code{Str}:  \cr run \code{\link[DescTools]{Str}()} on the current selection;
     \item \code{Abstract}:  \cr run \code{\link[DescTools]{Abstract}()} (a less technical description than str, meant for using with data.frames) on the current selection
     \item \code{Head}:  \cr run R-command \code{\link{head}()} on the current selection
-    \item \code{Example}:  \cr run R-command example on the current selection
+    \item \code{Example}:  \cr run R-command \code{example()} on the current selection
     \item \code{Some}:  \cr run DescTools command \code{\link[DescTools]{Some}()} on the current selection
     \item \code{Desc}:  \cr run \code{\link[DescTools]{Desc}()} on the current selection
-    \item \code{Select}:  \cr run \code{\link[DescTools]{SelectVarDlg}()} on the current selection. When the selection is a data.frame, this will display a dialog with the variable names listed, such that they can get selected by point and click. The variable names will be returned as string, enquoted and separated by a comma.
+    \item \code{Select}:  \cr select or pick things interactively. This function as well evaluates the current selection. If the selection corresponds to \code{pch} a dialog for selecting point characters will be displayed. If it's \code{col} the \code{\link{ColPicker}()} dialog will be displayed. If it's any of \code{path}, \code{fn}, \code{file} the \code{FileOpen} dialog will be displayed. In all other case the \code{\link[DescTools]{SelectVarDlg}()} on the current selection will be run. This can be used to select variablenames of a \code{data.frame} by mouse click or the levels of a factor (all depending on the class of the selected object). The variable names will be returned as string, enquoted and separated by a comma.
     \item \code{Plot}:  \cr run \code{\link{plot}()} on the current selection
+    \item \code{PlotD}:  \cr run \code{plot(Desc())} on the current selection
     \item \code{Save}:  \cr display a file dialog, get the desired path and filename and save the selected object in the given place.
-    \item \code{XLView}:  \cr view selected object in XL, which makes sense for data.frames.
-    \item \code{IntView}:  \cr view selected object with internal viewer (here too: data.frames)
-    \item \code{FileOpen}:  \cr get the path of a file to open and insert in code
-    \item \code{BuildModel}:  \cr display dialog for building up a model formula.
+    \item \code{XLView}:  \cr view selected object in MS-Excel, which makes sense for data.frames.
+    \item \code{IntView}:  \cr view selected object with internal viewer (here again: only data.frames)
+    \item \code{FileOpen}:  \cr get the path of a file to open and insert in code. (See also: \code{Select()})
+    \item \code{BuildModel}:  \cr display dialog for building up a model formula interactively by point and click.
     \item \code{FlipBackSlash}: \cr Handling backslashes in pathnames can be really annoying on Windows. This function replaces all backslashes in the selected text by simple slashes. It's cool to set this command on: Ctrl+Shift+/
     \item \code{SetArrow}:  \cr place an arrow in a plot and insert code into source file
-    \item \code{Summary}:  \cr run \code{\link{summary}())} on the current selection
-    \item \code{Enquote}:  \cr split the selected text using line breaks, enquote the parts and paste them separated by comma
-    \item \code{EvalEnquote}:  \cr evaluates the selection before enquoting the parts and paste them separated by comma. This can be used for enquoting factors.
+    \item \code{Summary}:  \cr run R-command \code{\link{summary}()} on the current selection
+    \item \code{Enquote}:  \cr split the selected text in the source panel using line breaks as separators, enquote the sections and paste them separated by comma.
+    \item \code{EvalEnquote}:  \cr evaluates the selection before enquoting the parts and paste them separated by comma. This can be used for enquote factors.
+    \item \code{NewObject}:  \cr starts the good old internal editor and allows to enter values. In dependence of the initial selection in the code panel different objects will be returned. If the selection was \code{m} the code for a matrix will be created, if the selection is \code{d} then the code for a data.frame will be returned and a c will be interpreted as vector. Default is \code{m}. Note that column names can be defined within the editor, but not rownames (don't ask me why ...).
   }
 
 As soon as the package is loaded once, the AddIns will be listed in RStudios AddIns listbox:\cr\cr

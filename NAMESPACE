@@ -1,4 +1,4 @@
-export("Str", "Desc", "Select", "Plot", "Head", "BuildModel", "Fix", "NewMatrix",
+export("Str", "Desc", "Select", "Plot", "PlotD", "Head", "BuildModel", "Fix", "NewObject",
        "Save" , "XLView","IntView", "FileOpen", "FlipBackSlash", "Example",
        "SetArrow", "Enquote", "EvalEnquote")
 

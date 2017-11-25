@@ -54,8 +54,8 @@ Binding: Desc
 Interactive: false
 
 Name: Select
-Title: Run SelectVarDlg on the current selection
-Description: Run SelectVarDlg on the current selection
+Title: Select elements interactively
+Description: Select colours, point characters, path, names of a data.frame or factor levels based on the current selection
 Binding: Select
 Interactive: true
 
@@ -73,6 +73,14 @@ Title: Run plot on the current selection
 Description: Run plot on the current selection
 Binding: Plot
 Interactive: false
+
+
+Name: PlotD
+Title: Run plot(Desc()) on the current selection
+Description: Run plot(Desc()) on the current selection
+Binding: PlotD
+Interactive: false
+
 
 Name: Save
 Title: Display filedialog and save selected object
@@ -123,10 +131,10 @@ Binding: EvalEnquote
 Interactive: true
 
 
-Name: NewMatrix
-Title: Creates a new Matrix in the edit window
-Description: Inserts the designed matrix
-Binding: NewMatrix
+Name: NewObject
+Title: Creates a new vector, matrix or data frame in the edit window
+Description: Inserts the designed object
+Binding: NewObject
 Interactive: true
 
 
