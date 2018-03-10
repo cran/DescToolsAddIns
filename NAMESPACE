@@ -1,6 +1,6 @@
 export("Str", "Desc", "Select", "Plot", "PlotD", "Head", "BuildModel", "Fix", "NewObject",
        "Save" , "XLView","IntView", "FileOpen", "FlipBackSlash", "Example",
-       "SetArrow", "Enquote", "EvalEnquote")
+       "SetArrow", "Enquote", "EvalEnquote", "InspectPnt", "Unclass")
 
 importFrom("DescTools", "Desc", "SelectVarDlg", "FileOpenCmd", "Str", "Abstract", "Some", "Arrow", "PlotPch", "ModelDlg")
 importFrom("rstudioapi", "insertText","getActiveDocumentContext", "sendToConsole", "modifyRange")

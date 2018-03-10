@@ -52,6 +52,16 @@ Fix <- function(){
 }
 
 
+Unclass <- function(){
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    rstudioapi::sendToConsole(gettextf("unclass(%s)", sel))
+  } else {
+    cat("No selection!\n")
+  }
+}
+
+
 
 Desc <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
@@ -283,5 +293,47 @@ NewObject <- function(){
   rstudioapi::insertText(txt)
 
 }
+
+
+
+InspectPnt <- function(){
+
+  .ToClipboard <- function (x, ...) {
+
+    sn <- Sys.info()["sysname"]
+    if (sn == "Darwin") {
+      file <- pipe("pbcopy")
+      cat(x, file = file, ...)
+      close(file)
+    }
+    else if (sn == "Windows") {
+      cat(x, file = "clipboard", ...)
+    }
+    else {
+      stop("Writing to the clipboard is not implemented for your system (",
+           sn, ") in this package.")
+    }
+  }
+
+
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+
+  if(sel != ""){
+    i <- eval(parse(text=gettextf("IdentifyA(%s, poly=TRUE)", sel)))
+
+    .ToClipboard(paste("c(", paste(i, collapse=","), ")", sep=""))
+
+    # Todo:
+    # Display directly by looking up the data in the formula
+    # View(mtcars[i,])
+
+  } else {
+    cat("No selection!\n")
+  }
+
+
+
+}
+
 
 

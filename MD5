@@ -1,7 +1,8 @@
-258e8776b9f839619bcf7db2e57a7c1b *DESCRIPTION
-8f0aa0cf689ccb6935129325e5d36746 *NAMESPACE
-4e9cee143c41d2c390836272a8f664e3 *NEWS
-264bc80d95c69a8d8e5d078bd520596d *R/AddIns.R
-074b943d9fe9fba495035e9652d1adfd *inst/rstudio/addins.dcf
-b3c6e77ef7921f904a7e4cb9c3ac602e *man/DescToolsAddIns.Rd
-30407dea58d62f41720beb20ca7e0221 *man/figures/AddIns.png
+6358b6edbed210ce07be8bfa6c3fea96 *DESCRIPTION
+de0b855d59b1b92171178553da4a4077 *NAMESPACE
+4b549a4e5de452b9e4eade976919ba5e *NEWS
+f93141c464ec011f883eb8890dbae725 *R/AddIns.R
+6e463820161e4206146871cd16c270e5 *inst/rstudio/addins.dcf
+640fd6c126f8eddc67cda4b9728d8476 *man/DescToolsAddIns.Rd
+7c526e62b7d9b422d1ec8ec1a5ad83d1 *man/figures/AddIns.png
+ca2282b39af2ef1ea3b001782b7c4bfe *man/figures/Shortcuts.png

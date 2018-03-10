@@ -12,6 +12,12 @@ Description: Run DescTools command Abstract on the current selection
 Binding: Abstract
 Interactive: false
 
+Name: Unclass
+Title: Run unclass on the current selection
+Description: Run R command unclass on the current selection
+Binding: Unclass
+Interactive: false
+
 
 Name: Summary
 Title: Run summary on the current selection
@@ -137,4 +143,9 @@ Description: Inserts the designed object
 Binding: NewObject
 Interactive: true
 
+Name: InspectPnt
+Title: Identify Points on a Plot
+Description: Lauch IdentifyA with the current selection as argument and returns the selected points on the plot.
+Binding: InspectPnt
+Interactive: true
 
