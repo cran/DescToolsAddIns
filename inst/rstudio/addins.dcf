@@ -26,10 +26,10 @@ Binding: Summary
 Interactive: false
 
 
-Name: Fix
-Title: Run fix on the current selection
+Name: Edit
+Title: Run R base function fix() on the current selection
 Description: Takes the selection (typically a data.frame) and invokes edit on it. Then the new (edited) version of the data.frame is assigned in the user's workspace.
-Binding: Fix
+Binding: Edit
 Interactive: false
 
 
@@ -38,6 +38,13 @@ Title: Run R-command head on the current selection
 Description: Run R-command head on the current selection
 Binding: Head
 Interactive: false
+
+Name: Class
+Title: Run R-command class on the current selection
+Description: Run R-command class on the current selection
+Binding: Class
+Interactive: false
+
 
 Name: Example
 Title: Run R-command example on the current selection
@@ -130,6 +137,13 @@ Description: Replace all the line breaks in the selected text by commas and enqu
 Binding: Enquote
 Interactive: true
 
+Name: EnquoteS
+Title: Replace line breaks by commas, while enquoting the parts
+Description: Replace all the line breaks in the selected text by commas and (single) enquote the parts
+Binding: EnquoteS
+Interactive: true
+
+
 Name: EvalEnquote
 Title: Evaluate the selection, enquotes the parts and paste together
 Description: Evaluate the selection, enquotes the parts and paste together
@@ -147,5 +161,11 @@ Name: InspectPnt
 Title: Identify Points on a Plot
 Description: Lauch IdentifyA with the current selection as argument and returns the selected points on the plot.
 Binding: InspectPnt
+Interactive: true
+
+Name: GetExcelRange
+Title: Import Excel range
+Description: Import a selected range in a running Excel instance
+Binding: GetExcelRange
 Interactive: true
 

@@ -1,4 +1,15 @@
 
+DescToolsAddIns 1.1 (2018-11-14)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+   * EnquoteS() uses single quotes for enquoting text.
+   * Selecting path uses DescTools::dir.choose() now allowing to select directories.
+   * GetXLRange() transfers data quickly from a running Excel instance.
+   * Class() returns the class of a selected object.
+
+
+
 DescToolsAddIns 1.0 (2018-03-10)
 ---------------------------------
 

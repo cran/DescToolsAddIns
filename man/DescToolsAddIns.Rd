@@ -17,12 +17,15 @@
 \alias{FlipBackSlash}
 \alias{SetArrow}
 \alias{Enquote}
+\alias{EnquoteS}
 \alias{EvalEnquote}
 \alias{BuildModel}
-\alias{Fix}
+\alias{Edit}
 \alias{NewObject}
 \alias{InspectPnt}
 \alias{Unclass}
+\alias{GetExcelRange}
+\alias{Class}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Some Functions to be Used as Shortcuts in 'RStudio'
@@ -55,13 +58,18 @@ FileOpen()
 FlipBackSlash()
 SetArrow()
 Enquote()
+EnquoteS()
 EvalEnquote()
-Fix()
+Edit()
 NewObject()
 InspectPnt()
 Unclass()
+GetExcelRange(env = .GlobalEnv)
+Class()
 }
-
+\arguments{
+\item{env}{Environment for GetExcelRange to write the data. GlobalEnv is default.}
+}
 \details{
 The following add-ins are available:
 \itemize{
@@ -84,16 +92,18 @@ The following add-ins are available:
     \item \code{SetArrow}:  \cr place an arrow in a plot and insert code into source file
     \item \code{Enquote}:  \cr split the selected text in the source panel using line breaks as separators, enquote the sections and paste them separated by comma.
     \item \code{EvalEnquote}:  \cr evaluates the selection before enquoting the parts and paste them separated by comma. This can be used for enquote factors.
-    \item \code{Fix}:  \cr run R-command \code{\link{fix}()} on the current selection. This is nice for editing data frames interactively.
+    \item \code{Edit}:  \cr run R-command \code{\link{fix}()} on the current selection. This is nice for editing data frames interactively.
     \item \code{NewObject}:  \cr starts the good old internal editor and allows to enter values. In dependence of the initial selection in the code panel different objects will be returned. If the selection was \code{m} the code for a matrix will be created, if the selection is \code{d} then the code for a data.frame will be returned and a c will be interpreted as vector. Default is \code{m}. Note that column names can be defined within the editor, but not rownames (don't ask me why ...).
     \item \code{InspectPnt}:  \cr Lauch \code{IdentifyA(... , poly=TRUE)} with the current selection as argument and returns the selected points on the plot.
     \item \code{Unclass}:  \cr run R-command \code{\link{unclass}()} on the current selection
+    \item \code{GetXLRange}:  \cr run DescTools command \code{\link[DescTools]{XLGetRange}()} by taking the current selection as name for the imported data and replace the current selection by the used code.
+    \item \code{Class}: \cr run \code{class} on the current selection.
   }
 
 As soon as the package is loaded once, the AddIns will be listed in RStudios AddIns listbox:\cr\cr
 \figure{AddIns.png}{AddIns listbox}
 
-The keyboard shortcuts can then be assigned by clicking on the menu \code{Tools | Modify Keyboard Shortcuts...} and scroll down to the Addin scope:
+The keyboard shortcuts can then be assigned by clicking on the menu \code{Tools | Modify Keyboard Shortcuts...} and scroll down to the Addin scope:\cr\cr
 \figure{Shortcuts.png}{Keyboard Shortcuts}
 
 }

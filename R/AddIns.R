@@ -5,6 +5,7 @@
 
 
 Str <- function(){
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("Str(%s)", sel))
@@ -24,6 +25,9 @@ Example <- function(){
 
 
 Abstract <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("Abstract(%s)", sel))
@@ -42,7 +46,7 @@ Summary <- function(){
 }
 
 
-Fix <- function(){
+Edit <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("fix(%s)", sel))
@@ -64,6 +68,9 @@ Unclass <- function(){
 
 
 Desc <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("Desc(%s)", sel))
@@ -75,6 +82,9 @@ Desc <- function(){
 
 
 Select <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     if(sel == "pch") {
@@ -85,8 +95,13 @@ Select <- function(){
         dev.off()
         rstudioapi::insertText(gettextf("col=c(%s)", paste(shQuote(txt), collapse=", ")))
 
-    } else if(sel %in% c("path", "fn", "file")) {
+    } else if(sel %in% c("fn", "file")) {
       txt <- eval(parse(text="FileOpenCmd(fmt='%path%%fname%.%ext%')"))
+      if(txt != "")
+        rstudioapi::insertText(gettextf("%s=%s", sel, shQuote(txt)))
+
+    } else if(sel %in% c("path","dir")) {
+      txt <- eval(parse(text="dir.choose()"))
       if(txt != "")
         rstudioapi::insertText(gettextf("%s=%s", sel, shQuote(txt)))
 
@@ -104,6 +119,8 @@ Select <- function(){
 
 
 BuildModel <- function(){
+
+  # require(DescTools)
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
@@ -129,6 +146,9 @@ Plot <- function(){
 
 
 PlotD <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel))
@@ -147,7 +167,22 @@ Head <- function(){
 
 }
 
+
+Class <- function(){
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != ""){
+    rstudioapi::sendToConsole(gettextf("class(%s)", sel), execute = TRUE)
+  } else {
+    cat("No selection!\n")
+  }
+
+}
+
+
 Some <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
     rstudioapi::sendToConsole(gettextf("Some(%s)", sel), execute = TRUE)
@@ -172,6 +207,9 @@ Save <- function(){
 
 
 XLView <- function(){
+
+  # require(DescTools)
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
     rstudioapi::sendToConsole(gettextf("XLView(%s)", sel))
@@ -193,6 +231,9 @@ IntView <- function(){
 
 
 FileOpen <- function(){
+
+  # require(DescTools)
+
   txt <- eval(parse(text="FileOpenCmd(fmt=NULL)"))
   if(txt != "") {
     rstudioapi::insertText(txt)
@@ -213,11 +254,14 @@ FlipBackSlash <- function() {
 
 
 SetArrow <- function(){
-    xy <- eval(parse(text="locator(n = 2)"))
-    eval(parse(text="Arrow(x0 = xy$x[2], y0 = xy$y[2], x1 = xy$x[1], y1 = xy$y[1], head=3)"))
-    txt <- gettextf("Arrow(x0 = %s, y0 = %s, x1 = %s, y1 = %s, head = 3)\n",
-                    round(xy$x[2],2), round(xy$y[2],2), round(xy$x[1],2), round(xy$y[1],2))
-    rstudioapi::modifyRange(txt)
+
+  # require(DescTools)
+
+  xy <- eval(parse(text="locator(n = 2)"))
+  eval(parse(text="Arrow(x0 = xy$x[2], y0 = xy$y[2], x1 = xy$x[1], y1 = xy$y[1], head=3)"))
+  txt <- gettextf("Arrow(x0 = %s, y0 = %s, x1 = %s, y1 = %s, head = 3)\n",
+                  round(xy$x[2],2), round(xy$y[2],2), round(xy$x[1],2), round(xy$y[1],2))
+  rstudioapi::modifyRange(txt)
 }
 
 
@@ -235,6 +279,23 @@ Enquote <- function(){
 
 
 }
+
+
+
+EnquoteS <- function(){
+
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+  if(txt != "") {
+    txt <- paste(sQuote(strsplit(txt, split="\n")[[1]]), collapse=",")
+    rstudioapi::modifyRange(txt)
+
+  } else {
+    cat("No selection!\n")
+  }
+
+
+}
+
 
 
 EvalEnquote <- function(){
@@ -298,6 +359,8 @@ NewObject <- function(){
 
 InspectPnt <- function(){
 
+  # require(DescTools)
+
   .ToClipboard <- function (x, ...) {
 
     sn <- Sys.info()["sysname"]
@@ -319,7 +382,7 @@ InspectPnt <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
 
   if(sel != ""){
-    i <- eval(parse(text=gettextf("IdentifyA(%s, poly=TRUE)", sel)))
+    i <- eval(parse(text=gettextf("DescTools::IdentifyA(%s, poly=TRUE)", sel)))
 
     .ToClipboard(paste("c(", paste(i, collapse=","), ")", sep=""))
 
@@ -335,5 +398,28 @@ InspectPnt <- function(){
 
 }
 
+
+
+GetExcelRange <- function(env=.GlobalEnv){
+
+  # require(DescTools)
+
+  rng <- DescTools::XLGetRange()
+
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+  if(txt != "") {
+    # remove any assignment
+    txt <- StrTrim(gsub("<- *$|= *$", "", txt))
+    # assign the imported data to the selected name in GlobalEnv
+    assign(txt, rng, envir = env)
+    # add the assignment to the selected name
+    txt <- paste(txt, "<-")
+  }
+  txt <- paste(txt, attr(rng, "call"), "\n")
+  rstudioapi::modifyRange(txt)
+
+  print(rng)
+
+}
 
 
