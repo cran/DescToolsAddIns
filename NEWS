@@ -1,4 +1,20 @@
 
+DescToolsAddIns 1.2 (2019-05-07)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+   * FlushToSource will replace the selection with its captured result from
+     the function dput().
+
+UPDATED FUNCTIONS:
+   * Class will display more object properties than just the class.
+
+BUGFIXES:
+   * All functions using rstudioapi::sendToConsole() will not set the focus to
+     the console anymore. Thanks to Kevin Ushey for the bugfixing.
+
+
+
 DescToolsAddIns 1.1 (2018-11-14)
 ---------------------------------
 

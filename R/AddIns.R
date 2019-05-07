@@ -6,9 +6,11 @@
 
 Str <- function(){
 
+  requireNamespace("DescTools")
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Str(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("Str(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -17,7 +19,7 @@ Str <- function(){
 Example <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("example(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("example(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -26,11 +28,11 @@ Example <- function(){
 
 Abstract <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Abstract(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("Abstract(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -39,7 +41,7 @@ Abstract <- function(){
 Summary <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("summary(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("summary(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -49,7 +51,7 @@ Summary <- function(){
 Edit <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("fix(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("fix(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -59,7 +61,7 @@ Edit <- function(){
 Unclass <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("unclass(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("unclass(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -69,11 +71,11 @@ Unclass <- function(){
 
 Desc <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Desc(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("Desc(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -83,7 +85,7 @@ Desc <- function(){
 
 Select <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
@@ -120,7 +122,7 @@ Select <- function(){
 
 BuildModel <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
@@ -138,7 +140,7 @@ BuildModel <- function(){
 Plot <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("plot(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("plot(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -147,11 +149,11 @@ Plot <- function(){
 
 PlotD <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel))
+    rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -160,7 +162,7 @@ PlotD <- function(){
 Head <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
-    rstudioapi::sendToConsole(gettextf("head(%s)", sel), execute = TRUE)
+    rstudioapi::sendToConsole(gettextf("head(%s)", sel), execute = TRUE, focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -168,10 +170,35 @@ Head <- function(){
 }
 
 
+Info <- function(x){
+
+  class_x <- strwrap(paste(class(x), collapse=", "),
+                     width= getOption("width") - nchar("  Class(es):   "))
+  class_x[-1] <- paste(strrep(" ", nchar("  Class(es):  ")), class_x[-1])
+
+  cat(gettextf("Properties -------- \n  Object:      %s\n  TypeOf:      %s\n  Class(es):   %s\n  Mode:        %s\n  Dimension:   %s\n  Length:      %s\n  Size:        %s\n  Attributes:  ",
+               deparse(substitute(x)), typeof(x),
+               paste(class_x, collapse="\n"),
+               mode(x),
+               ifelse(is.null(dim(x)), "NULL", toString(dim(x))), length(x), capture.output(object.size(x))))
+  if(!is.null(attributes(x))) {
+    cat("\n")
+    opt <- options(width=getOption("width") - 4)
+    cat(paste("    ", capture.output(attributes(x))), sep="\n")
+    options(opt)
+  } else
+    cat("none\n\n")
+}
+
+
+
 Class <- function(){
+
   sel <- getActiveDocumentContext()$selection[[1]]$text
+
   if(sel != ""){
-    rstudioapi::sendToConsole(gettextf("class(%s)", sel), execute = TRUE)
+    # val(parse(text = gettextf("DescToolsAddIns::Info(%s)", sel)))
+    rstudioapi::sendToConsole(gettextf("DescToolsAddIns::Info(%s)", sel), execute = TRUE, focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -181,11 +208,11 @@ Class <- function(){
 
 Some <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
-    rstudioapi::sendToConsole(gettextf("Some(%s)", sel), execute = TRUE)
+    rstudioapi::sendToConsole(gettextf("Some(%s)", sel), execute = TRUE, focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -198,7 +225,7 @@ Save <- function(){
   if(sel != "") {
     f <- tclvalue(eval(parse(text=gettextf("tkgetSaveFile(initialfile='%s.rda', title='Save a file...')", sel))))
     if(f != "")
-      rstudioapi::sendToConsole(gettextf("save(x=%s, file='%s')", sel, f))
+      rstudioapi::sendToConsole(gettextf("save(x=%s, file='%s')", sel, f), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -208,11 +235,11 @@ Save <- function(){
 
 XLView <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("XLView(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("XLView(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -222,7 +249,7 @@ XLView <- function(){
 IntView <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("View(%s)", sel))
+    rstudioapi::sendToConsole(gettextf("View(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -232,7 +259,7 @@ IntView <- function(){
 
 FileOpen <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   txt <- eval(parse(text="FileOpenCmd(fmt=NULL)"))
   if(txt != "") {
@@ -255,7 +282,7 @@ FlipBackSlash <- function() {
 
 SetArrow <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   xy <- eval(parse(text="locator(n = 2)"))
   eval(parse(text="Arrow(x0 = xy$x[2], y0 = xy$y[2], x1 = xy$x[1], y1 = xy$y[1], head=3)"))
@@ -359,7 +386,7 @@ NewObject <- function(){
 
 InspectPnt <- function(){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   .ToClipboard <- function (x, ...) {
 
@@ -402,7 +429,7 @@ InspectPnt <- function(){
 
 GetExcelRange <- function(env=.GlobalEnv){
 
-  # require(DescTools)
+  requireNamespace("DescTools")
 
   rng <- DescTools::XLGetRange()
 
@@ -419,6 +446,20 @@ GetExcelRange <- function(env=.GlobalEnv){
   rstudioapi::modifyRange(txt)
 
   print(rng)
+
+}
+
+
+
+FlushToSource <- function(){
+
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != ""){
+    txt <- capture.output(eval(parse(text=gettextf("dput(%s)", sel))))
+    rstudioapi::insertText(paste(sel, "<-", paste(txt, collapse="\n"), "\n"))
+  } else {
+    cat("No selection!\n")
+  }
 
 }
 

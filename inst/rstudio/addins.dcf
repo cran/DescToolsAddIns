@@ -169,3 +169,12 @@ Description: Import a selected range in a running Excel instance
 Binding: GetExcelRange
 Interactive: true
 
+
+Name: FlushToSource
+Title: Replace selection with its dput result
+Description: Replace selection with its dput result
+Binding: FlushToSource
+Interactive: true
+
+
+

@@ -1,9 +1,10 @@
 export("Str", "Desc", "Select", "Plot", "PlotD", "Head", "BuildModel", "Edit", "NewObject",
        "Save" , "XLView","IntView", "FileOpen", "FlipBackSlash", "Example",
-       "SetArrow", "Enquote", "EnquoteS", "EvalEnquote", "InspectPnt", "Unclass","GetExcelRange","Class")
+       "Info",
+       "SetArrow", "Enquote", "EnquoteS", "EvalEnquote", "InspectPnt", "Unclass","GetExcelRange","Class","FlushToSource")
 
-importFrom("DescTools", "Desc", "SelectVarDlg", "FileOpenCmd", "Str", "Abstract", "Some", "Arrow", "PlotPch", "ModelDlg","StrTrim")
+importFrom("DescTools", "Desc", "SelectVarDlg", "FileOpenCmd", "Str", "Abstract", "Some", "Arrow", "PlotPch", "ModelDlg","StrTrim", "Format")
 importFrom("rstudioapi", "insertText","getActiveDocumentContext", "sendToConsole", "modifyRange")
 importFrom("tcltk", "tkgetSaveFile", "tclvalue")
 importFrom("grDevices", "dev.off")
-importFrom("utils", "fix","edit")
+importFrom("utils", "fix","edit", "capture.output", "object.size")
