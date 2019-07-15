@@ -1,4 +1,19 @@
 
+DescToolsAddIns 1.3 (2019-07-15)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+   * FileSaveAs() is a new function for saving objects, allowing to choose the
+     type, either binary or text for general objects or csv/xlsx for data.frames.
+   * New functions taken over from DescTools: ModelDlg(), FileOpenDlg(), Xplore(),
+     dir.choose(), ColorDlg(), SelectVarDlg(), ImportFileDlg(), PlotPar(), PlotPch(),
+     PlotMar()
+
+DEPRECATED:
+   * Save() has been replaced by FileSaveAs().
+
+
+
 DescToolsAddIns 1.2 (2019-05-07)
 ---------------------------------
 
