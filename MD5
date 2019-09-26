@@ -1,6 +1,6 @@
-ac276d02f0ee7647139e7cbd5e397ffe *DESCRIPTION
+09b6ff848ba38dd221059d691d4f9e8a *DESCRIPTION
 063ef555232e7762e05ea90f5c1891b6 *NAMESPACE
-b444709e1338c6540701d9e3f32820cf *NEWS
+e6bb5abf2dcaf18f347bd646174f4748 *NEWS
 da3addcbb57df816f4ae66d2ce0357ac *R/AddIns.R
 357685835d75d25dad5c538dc1dce198 *R/Dialogs.R
 05c8266f8b09599c3b26602c3dc9e03d *README.md
@@ -13,7 +13,7 @@ ef14f78a4724e95949c4ffd884ca6ab0 *inst/extdata/SortListDesc.gif
 2628e15eec0464e3c15164d6a2089442 *inst/rstudio/addins.dcf
 61f5d07558ec4431c33f74fdaf772f03 *man/ColPicker.Rd
 70e0c0b5a4784b3ba15403fced945c6a *man/ColorDlg.Rd
-c5d314c92c51ca994fc7bdf137d3147e *man/DescToolsAddIns.Rd
+22be5b18a1d3d6c8ebd9767e6a81bfcf *man/DescToolsAddIns.Rd
 2a12c35d1d36df7c826a57db7939d167 *man/FileImportDlg.Rd
 4f6ac3167914737df12c028bc2c12a74 *man/FileOpenDlg.Rd
 b9f30237f30331555a9d29ba570964fd *man/ModelDlg.Rd
