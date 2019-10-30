@@ -246,6 +246,39 @@ FileOpen <- function(){
 }
 
 
+FileBrowserOpen <- function(){
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != ""){
+    
+    path <- eval(parse(text=sel)) # should we do some cleansing here?
+    
+    si <- Sys.info()["sysname"]
+    
+    if (si == "Darwin") {
+      # mac
+      system2("open", path)
+      
+    } else if (si == "Windows") {
+      # win
+      shell.exec(path)
+      
+    } else if (si == "Linux") {
+      # linux
+      system(paste0("xdg-open ", path))
+      
+    } else {
+      stop("Open browser is not implemented for your system (",
+           si, ") in this package (due to incompetence of the author).")
+    }
+
+  } else {
+    cat("No selection!\n")
+  }
+  
+}
+
+
 
 FileImport <- function(){
 
@@ -310,6 +343,21 @@ XLView <- function(){
 }
 
 
+ToWrd <- function(){
+  
+  requireNamespace("DescTools")
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    rstudioapi::sendToConsole(gettextf("ToWrd(%s)", sel), focus = FALSE)
+  } else {
+    cat("No selection!\n")
+  }
+}
+
+
+
+
 IntView <- function(){
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
@@ -325,12 +373,27 @@ FlipBackSlash <- function() {
   txt <- getActiveDocumentContext()$selection[[1]]$text
   if(txt != "") {
     txt <- gsub("\\\\", "/", txt)
+    # replace double // by /
+    txt <- gsub("/+", "/", txt)
     rstudioapi::modifyRange(txt)
   } else {
     cat("No selection!\n")
   }
 
 }
+
+
+FlipSlash <- function() {
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+  if(txt != "") {
+    txt <- gsub("/", "\\\\", txt)
+    rstudioapi::modifyRange(txt)
+  } else {
+    cat("No selection!\n")
+  }
+  
+}
+
 
 
 SetArrow <- function(){
@@ -515,5 +578,106 @@ FlushToSource <- function(){
   }
 
 }
+
+
+
+ToWrdWithBookmark <- function(){
+  
+  requireNamespace("DescTools")
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    bm <- eval(parse(text=gettextf("bm <- ToWrdB({%s})", sel)))
+    rstudioapi::modifyRange(gettextf("## BookmarkName: %s\n{\n%s}\n", bm$name(), sel))
+    
+  } else {
+    cat("No selection!\n")
+  }
+}
+
+
+
+ToWrdPlotWithBookmark <- function(){
+  
+  requireNamespace("DescTools")
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    bm <- eval(parse(text=gettextf("bm <- ToWrdPlot({%s})", sel)))
+    rstudioapi::modifyRange(gettextf("## BookmarkName: %s (width=15)\n{\n%s}\n", 
+                                     bm$bookmark$name(), sel))
+    
+  } else {
+    cat("No selection!\n")
+  }
+}
+
+
+
+
+UpdateBookmark <- function(){
+  
+  requireNamespace("DescTools")
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  
+  if(sel != "") {
+    
+    # expected structure of the code (args are optional)
+    # ## Bookmark: <bookmarkname> (<args>) { <code> }
+    # the bookmarkname must consist of bm(p|t)000000000, p standing for plot, t for text
+    # the type of the bookmark must be visible in the name, as 
+    # updatebookmark gets nothing else...
+    
+    # first separate the bookmark name between : and { of the selected text
+    bm <- StrTrim(regmatches(sel, gregexpr("(?s)(?<=:).*?(?=\\{)", sel, perl=TRUE)))
+    
+    # split name from args and get the bookmark type
+    # greedy to the last )
+    args <- regmatches(bm, gregexpr("(?<=\\().*(?=\\))", bm, perl=TRUE))[[1]]
+    if(length(args) > 0) args <- paste(",", args) else args <- ""
+    
+    bm <- gsub(" .*", "", bm)   # take first word only as name
+    bmtype <- substr(bm, 1, 3)
+    
+    # get the commands between the brackets
+    code <- regmatches(sel, gregexpr("(?s)(?<=\\{).*?(?=\\})", sel, perl=TRUE))[[1]]
+    
+    if(!is.null(DescTools::WrdBookmark(bookmark = bm))){
+      
+      DescTools::WrdGoto(name = bm)
+      wrd <- DescTools::DescToolsOptions("lastWord")
+      wrd[["Selection"]]$delete()
+      
+      if(bmtype=="bmt") {         # text bookmark
+        eval(parse(text=gettextf("DescTools::ToWrdB({%s}, bookmark='%s' %s)", code, bm, args)))
+        
+      } else if(bmtype=="bmp") {  # plot bookmark
+        eval(parse(text=gettextf("DescTools::ToWrdPlot({%s}, bookmark='%s' %s)", code, bm, args)))
+        
+      } else {
+        warning("unknown bookmark type")
+      }
+      
+    } else {
+      warning(gettextf("bookmark %s not found", bm))
+      
+    }
+    
+    
+    
+  } else {
+    cat("No selection!\n")
+  }
+  
+}
+
+
+
+# ToDo:
+# Make Addin UpdateAllBookmarks() to update all bookmark sections
+
+
+
 
 

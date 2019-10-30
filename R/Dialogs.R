@@ -143,7 +143,7 @@ ModelDlg <- function(x, ...){
   .AddVar <- function(sep, pack = NULL) {
 
     var.name <- as.numeric(tcltk::tkcurselection(tlist.var))
-    lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
+    lst <- .GetVarName(as.character(tcltk::tkget(tlist.var, 0, "end")))
 
     if (length(var.name) == 0)
       tcltk::tkmessageBox(message = "No variable selected",
@@ -185,7 +185,7 @@ ModelDlg <- function(x, ...){
   .InsertLHS <- function() {
 
     var.name <- as.numeric(tcltk::tkcurselection(tlist.var))
-    lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
+    lst <- .GetVarName(as.character(tcltk::tkget(tlist.var, 0, "end")))
 
     if (length(var.name) == 0)
       tcltk::tkmessageBox(message = "No variable selected",
@@ -198,7 +198,7 @@ ModelDlg <- function(x, ...){
 
   .SortVarList <- function(ord){
 
-    lst <- DescTools::StrTrim(as.character(tcltk::tkget(tlist.var, 0, "end")))
+    lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
 
     # for (i in (length(names(x)):0)) tkdelete(tlist.var, i)
     .EmptyListBox()
@@ -208,7 +208,7 @@ ModelDlg <- function(x, ...){
     } else if(ord == "d"){
       v <- DescTools::StrTrim(sort(lst, decreasing = TRUE))
     } else {
-      v <- DescTools::StrTrim(names(x)[names(x) %in% lst])
+      v <- DescTools::StrTrim(.VarNames()[names(x) %in% .GetVarName(lst)])
     }
 
     for (z in v) {
@@ -222,14 +222,14 @@ ModelDlg <- function(x, ...){
     pat <- DescTools::StrTrim(tcltk::tclvalue(tffilter))
     # print(pat)
     if(pat=="")
-      v <- DescTools::StrTrim(names(x))
+      v <- .VarNames()
     else
-      v <- grep(pattern = pat, DescTools::StrTrim(names(x)), value=TRUE, fixed=TRUE)
+      v <- grep(pattern = pat, .VarNames(), value=TRUE, fixed=TRUE)
 
     for (i in (length(names(x)):0)) tcltk::tkdelete(tlist.var, i)
 
     for (z in v) {
-      tcltk::tkinsert(tlist.var, "end", paste0(" ", z))
+      tcltk::tkinsert(tlist.var, "end", z)
     }
 
     # tcltk::tclvalue(frmVar$text) <- gettextf("Variables (%s/%s):", length(v), length(names(x)))
@@ -239,7 +239,7 @@ ModelDlg <- function(x, ...){
   .SelectVarList <- function(){
 
     var.name <- as.numeric(tcltk::tkcurselection(tlist.var))
-    lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
+    lst <- .GetVarName(as.character(tcltk::tkget(tlist.var, 0, "end")))
 
     if (length(var.name) > 0) {
       txt <- StrTrunc(Label(x[, StrTrim(lst[var.name + 1])]), 30)
@@ -253,6 +253,29 @@ ModelDlg <- function(x, ...){
     }
   }
 
+  
+  .VarNames <- function(){
+    
+    cabbr <- function(x){
+      
+      if(class(x)[1]=="integer") "int"
+      else if(class(x)[1]=="numeric") "num"  
+      else if(class(x)[1]=="factor") gettextf("fac(%s)", nlevels(x))  
+      else if(class(x)[1]=="ordered") gettextf("ord(%s)", nlevels(x))  
+      else if(class(x)[1]=="Date") "date"  
+      else if(class(x)[1]=="character") "char"  
+      else if(class(x)[1]=="logical") "log"  
+      else class(x)[1]   
+    }
+    
+    sapply(names(x), function(z) gettextf(" %s   - %s", z, cabbr(x[, z])))
+    
+  }
+  
+  .GetVarName <- function(x){
+    StrTrim(gsub("-.*", "", x))
+  }
+  
 
   fam <- "comic"
   size <- 10
@@ -306,7 +329,7 @@ ModelDlg <- function(x, ...){
 
   # create window
   root <- .InitDlg(width = 880, height = 532, resizex=TRUE, resizey=TRUE,
-                   main=gettextf("Build Model Formula (%s)", deparse(substitute(x))), ico="R")
+                   main=gettextf("Build Model Formula (%s)", xname), ico="R")
 
   # define widgets
   content <- tcltk::tkframe(root, padx=10, pady=10)
@@ -334,8 +357,10 @@ ModelDlg <- function(x, ...){
                                 height=20, width=20, font = myfont)
   tfVarLabel <- tcltk::tklabel(frmVar, justify="left", width=26, anchor="w", textvariable=tflbl, font=myfont)
 
-  for (z in names(x)) {
-    tcltk::tkinsert(tlist.var, "end", paste0(" ", z))
+
+  
+  for (z in .VarNames()) {
+    tcltk::tkinsert(tlist.var, "end", z)
   }
 
 

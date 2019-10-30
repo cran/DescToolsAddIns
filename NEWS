@@ -1,3 +1,21 @@
+
+DescToolsAddIns 1.5 (2019-10-27)
+---------------------------------
+
+NEW FUNCTIONS ADDED:
+  * ToWrd() sends the output of the selection directly to the current Word
+    instance.
+  * ToWrdWithBookmark() sends the output of the selection directly to the current Word
+    instance and tags the output with a bookmark.
+  * ToWrdPlotWithBookmark() sends the output of a plot code directly to the current
+    Word instance and tags the output with a bookmark.
+  * UpdateBookmark() evaluates the selection and updates a bookmarked output in Word.
+  * FileBrowserOpen() opens a file browser window with the selection as current 
+    directory.
+ 
+
+
+
 DescToolsAddIns 1.4 (2019-09-26)
 ---------------------------------
 
