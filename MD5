@@ -1,7 +1,7 @@
-a7a96e7502de891750872758d2b9981d *DESCRIPTION
-498275807429a1f10dcb130832204090 *NAMESPACE
-df1fd02baf614f52a48514a15caf6130 *NEWS
-4265e6d6e637c9de3b19a69898472105 *R/AddIns.R
+20b3b07e198cd36ca6446b89bc2ac6b6 *DESCRIPTION
+add88f93cded194e5a0aef1784c8daee *NAMESPACE
+bd259f7327022c809ae81012555e3e74 *NEWS
+7483fc7d2872e2a3e06c3b85edb2636f *R/AddIns.R
 8d49e52d6e36b705db3d246b9bf65895 *R/Dialogs.R
 05c8266f8b09599c3b26602c3dc9e03d *README.md
 280edadfc6c6b1e470fb7421f46f58a9 *inst/CITATION
@@ -10,10 +10,10 @@ df1fd02baf614f52a48514a15caf6130 *NEWS
 ef14f78a4724e95949c4ffd884ca6ab0 *inst/extdata/SortListDesc.gif
 06e536fda18900862a4c8df8bb5df559 *inst/extdata/SortListNo.gif
 54a8efa1a5d048c9cd6061b5d5e0cea5 *inst/extdata/key.ico
-c30252b0242f6fbafdc743bf93830980 *inst/rstudio/addins.dcf
+56af45ba583f339e614128cf254bd5ed *inst/rstudio/addins.dcf
 61f5d07558ec4431c33f74fdaf772f03 *man/ColPicker.Rd
 70e0c0b5a4784b3ba15403fced945c6a *man/ColorDlg.Rd
-2e508cf9f2ad0ce8ecdf5839fc55c85c *man/DescToolsAddIns.Rd
+7cd8f562afdba7fd3d4ab59aa38f9035 *man/DescToolsAddIns.Rd
 2a12c35d1d36df7c826a57db7939d167 *man/FileImportDlg.Rd
 4f6ac3167914737df12c028bc2c12a74 *man/FileOpenDlg.Rd
 29ac14528741a96b10e435dd008a43c9 *man/ModelDlg.Rd

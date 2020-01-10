@@ -31,7 +31,11 @@
 \alias{ToWrd}
 \alias{ToWrdWithBookmark}
 \alias{UpdateBookmark}
+\alias{CreateBookmark}
 \alias{FileBrowserOpen}
+\alias{SortAsc}
+\alias{SortDesc}
+\alias{RemoveDuplicates}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Some Functions to be Used as Shortcuts in 'RStudio'
@@ -78,6 +82,9 @@ BuildModel()
 
 Enquote()
 EnquoteS()
+RemoveDuplicates()
+SortAsc()
+SortDesc()
 EvalEnquote()
 FlipBackSlash()
 FlipSlash()
@@ -121,6 +128,9 @@ The following add-ins are available:
 
     \item \code{Enquote}:  \cr split the selected text in the source panel using line breaks as separators, enquote the sections and paste them separated by comma.
     \item \code{EnquoteS}:  \cr does the same as \code{Enquote()} but uses single quotation marks.
+    \item \code{RemoveDuplicates}:  \cr remove all the duplicates (by row) of the selected text.
+    \item \code{SortAsc}, \code{SortDesc}:  \cr sorts the selected text by row in ascending, resp. descending order.
+    
     \item \code{EvalEnquote}:  \cr evaluates the selection before enquoting the parts and paste them separated by comma. This can be used to enquote factors.
      \item \code{FlipBackSlash}: \cr Handling backslashes in pathnames can be really annoying on Windows. This function replaces all backslashes in the selected text by simple slashes. \cr It's cool to set this command to the keyboard shortcut: \code{Ctrl+Shift+/}
      \item \code{FlipSlash}: \cr inverse function to \code{FlipBackSlash}.

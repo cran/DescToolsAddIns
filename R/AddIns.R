@@ -10,7 +10,7 @@ Str <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Str(%s)", sel), focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("DescTools::Str(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -32,7 +32,7 @@ Abstract <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Abstract(%s)", sel), focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("DescTools::Abstract(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -75,7 +75,7 @@ Desc <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("Desc(%s)", sel), focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("DescTools::Desc(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -152,7 +152,7 @@ PlotD <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("plot(Desc(%s))", sel), focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("plot(DescTools::Desc(%s))", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -215,7 +215,7 @@ Some <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != ""){
-    rstudioapi::sendToConsole(gettextf("Some(%s)", sel), execute = TRUE, focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("DescTools::Some(%s)", sel), execute = TRUE, focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -336,7 +336,7 @@ XLView <- function(){
 
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("XLView(%s)", sel), focus = FALSE)
+    rstudioapi::sendToConsole(gettextf("DescTools::XLView(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -349,7 +349,8 @@ ToWrd <- function(){
   
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    rstudioapi::sendToConsole(gettextf("ToWrd(%s)", sel), focus = FALSE)
+    if(sel=="\n") sel <- "'\n'"
+    rstudioapi::sendToConsole(gettextf("DescTools::ToWrd(%s)", sel), focus = FALSE)
   } else {
     cat("No selection!\n")
   }
@@ -410,11 +411,22 @@ SetArrow <- function(){
 
 
 Enquote <- function(){
-
+  
+  rng <- getActiveDocumentContext()
   txt <- getActiveDocumentContext()$selection[[1]]$text
   if(txt != "") {
     txt <- paste(shQuote(strsplit(txt, split="\n")[[1]]), collapse=",")
+    
+    # store selection
+    sel <- rng$selection[[1]]$range
+    
+    # insert the text
     rstudioapi::modifyRange(txt)
+    
+    # select inserted text
+    nsel <- getActiveDocumentContext()$selection[[1]]$range
+    sel$end <- nsel$start
+    rstudioapi::setSelectionRanges(sel)
 
   } else {
     cat("No selection!\n")
@@ -427,11 +439,22 @@ Enquote <- function(){
 
 EnquoteS <- function(){
 
+  rng <- getActiveDocumentContext()
   txt <- getActiveDocumentContext()$selection[[1]]$text
   if(txt != "") {
     txt <- paste(sQuote(strsplit(txt, split="\n")[[1]]), collapse=",")
+
+    # store selection
+    sel <- rng$selection[[1]]$range
+    
+    # insert the text
     rstudioapi::modifyRange(txt)
 
+    # select inserted text
+    nsel <- getActiveDocumentContext()$selection[[1]]$range
+    sel$end <- nsel$start
+    rstudioapi::setSelectionRanges(sel)
+    
   } else {
     cat("No selection!\n")
   }
@@ -457,6 +480,80 @@ EvalEnquote <- function(){
 
 
 }
+
+
+
+SortAsc <- function(){
+  
+  rng <- getActiveDocumentContext()
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+
+  if(txt != "") {
+    rep_txt <- paste(sort(strsplit(txt, split="\n")[[1]]), collapse="\n")
+    if(length(grep("\\n$", txt))!=0)
+      rep_txt <- paste0(rep_txt, "\n")
+    
+    rstudioapi::modifyRange(rep_txt)
+    rstudioapi::setSelectionRanges(rng$selection[[1]]$range)
+    
+  } else {
+    cat("No selection!\n")
+  }
+  
+  
+}
+
+
+SortDesc <- function(){
+  rng <- getActiveDocumentContext()
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+  
+  if(txt != "") {
+    rep_txt <- paste(sort(strsplit(txt, split="\n")[[1]], decreasing = TRUE), collapse="\n")
+    if(length(grep("\\n$", txt))!=0)
+      rep_txt <- paste0(rep_txt, "\n")
+    rstudioapi::modifyRange(rep_txt)
+    rstudioapi::setSelectionRanges(rng$selection[[1]]$range)
+    
+  } else {
+    cat("No selection!\n")
+  }
+  
+  
+}
+
+
+
+RemoveDuplicates <- function () {
+  
+  rng <- getActiveDocumentContext()
+  txt <- getActiveDocumentContext()$selection[[1]]$text
+  if (txt != "") {
+    
+    txt <- strsplit(txt, split = "\n")[[1]]
+    u <- unique(txt)
+    utxt <- paste(u, collapse = "\n")
+    # add the last cr if the original already had it
+    if(length(grep("\\n$", txt))!=0)
+      utxt <- paste0(utxt, "\n")
+    
+    rstudioapi::modifyRange(utxt)
+    
+    sel <- rng$selection[[1]]$range
+    sel$end[1] <- sel$end[1] - (length(txt) - length(u))
+    
+    rstudioapi::setSelectionRanges(sel)
+    
+    note <- gettextf("\033[36m\nNote: ------\n  %s duplicates have been found and removed. %s values remain.\n\n\033[39m", 
+                    length(txt) - length(u), length(u)) 
+    cat(note)
+    
+  }
+  else {
+    cat("No selection!\n")
+  }
+}
+
 
 
 
@@ -546,9 +643,11 @@ InspectPnt <- function(){
 GetExcelRange <- function(env=.GlobalEnv){
 
   requireNamespace("DescTools")
-
-  rng <- DescTools::XLGetRange()
-
+  
+  # we need to declare the variable here to avoid the barking of the check
+  rng <- data.frame()   
+  eval(parse(text="rng <- DescTools::XLGetRange()"))
+  
   txt <- getActiveDocumentContext()$selection[[1]]$text
   if(txt != "") {
     # remove any assignment
@@ -587,7 +686,7 @@ ToWrdWithBookmark <- function(){
   
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    bm <- eval(parse(text=gettextf("bm <- ToWrdB({%s})", sel)))
+    bm <- eval(parse(text=gettextf("bm <- DescTools::ToWrdB({%s})", sel)))
     rstudioapi::modifyRange(gettextf("## BookmarkName: %s\n{\n%s}\n", bm$name(), sel))
     
   } else {
@@ -603,7 +702,7 @@ ToWrdPlotWithBookmark <- function(){
   
   sel <- getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    bm <- eval(parse(text=gettextf("bm <- ToWrdPlot({%s})", sel)))
+    bm <- eval(parse(text=gettextf("bm <- DescTools::ToWrdPlot(%s)", sQuote(gettextf("{%s}", sel)))))
     rstudioapi::modifyRange(gettextf("## BookmarkName: %s (width=15)\n{\n%s}\n", 
                                      bm$bookmark$name(), sel))
     
@@ -612,6 +711,20 @@ ToWrdPlotWithBookmark <- function(){
   }
 }
 
+
+
+CreateBookmark <- function(){
+  
+  requireNamespace("DescTools")
+  
+  sel <- getActiveDocumentContext()$selection[[1]]$text
+  if(sel != "") {
+    if(sel=="\n") sel <- "'\n'"
+    rstudioapi::sendToConsole(gettextf("DescTools::WrdInsertBookmark(name='%s')", sel), focus = FALSE)
+  } else {
+    cat("No selection!\n")
+  }
+}
 
 
 
@@ -641,7 +754,7 @@ UpdateBookmark <- function(){
     bmtype <- substr(bm, 1, 3)
     
     # get the commands between the brackets
-    code <- regmatches(sel, gregexpr("(?s)(?<=\\{).*?(?=\\})", sel, perl=TRUE))[[1]]
+    code <- regmatches(sel, gregexpr("(?s)(?<=\\{).*(?=\\})", sel, perl=TRUE))[[1]]
     
     if(!is.null(DescTools::WrdBookmark(bookmark = bm))){
       
@@ -650,10 +763,10 @@ UpdateBookmark <- function(){
       wrd[["Selection"]]$delete()
       
       if(bmtype=="bmt") {         # text bookmark
-        eval(parse(text=gettextf("DescTools::ToWrdB({%s}, bookmark='%s' %s)", code, bm, args)))
+        eval(parse(text=gettextf('DescTools::ToWrdB({%s}, bookmark="%s" %s)', code, bm, args)))
         
       } else if(bmtype=="bmp") {  # plot bookmark
-        eval(parse(text=gettextf("DescTools::ToWrdPlot({%s}, bookmark='%s' %s)", code, bm, args)))
+        eval(parse(text=gettextf("DescTools::ToWrdPlot(%s, bookmark='%s' %s)", sQuote(gettextf("{%s}", code)), bm, args)))
         
       } else {
         warning("unknown bookmark type")
@@ -671,6 +784,7 @@ UpdateBookmark <- function(){
   }
   
 }
+
 
 
 

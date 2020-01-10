@@ -75,6 +75,12 @@ Binding: UpdateBookmark
 Interactive: false
 
 
+Name: CreateBookmark
+Title:  Create a Bookmark in Word
+Description: Takes the current selection and creates a bookmark with it as name.
+Binding: CreateBookmark
+Interactive: false
+
 
 
 Name: IntView
@@ -213,6 +219,28 @@ Title: Replace line breaks by commas, while enquoting the parts
 Description: Replace all the line breaks in the currently selected text by commas and (single) enquote the parts
 Binding: EnquoteS
 Interactive: true
+
+
+Name: SortAsc
+Title: Sort the Selected Text (ascending)
+Description: Sorts the selected text in ascending order
+Binding: SortAsc
+Interactive: true
+
+Name: SortDesc
+Title: Sort the Selected Text (descending)
+Description: Sorts the selected text in decreasing order
+Binding: SortDesc
+Interactive: true
+
+
+Name: RemoveDuplicates
+Title: Remove Duplicates
+Description: Remove rowwise all duplicates in the currently selected text
+Binding: RemoveDuplicates
+Interactive: true
+
+
 
 Name: EvalEnquote
 Title: Evaluate the selection, enquotes the parts and paste together
