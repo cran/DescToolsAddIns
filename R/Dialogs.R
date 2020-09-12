@@ -157,9 +157,11 @@ ModelDlg <- function(x, ...){
       else
         vn <- DescTools::StrTrim(gettextf(pack, lst[var.name + 1]))
 
-      tcltk::tkinsert(tfModx, "insert",
-                      StrTrim(paste(ifelse(txt=="", "", connect), paste(vn, collapse=sep), ""), method="left")
-                      , "notwrapped")
+      txt <- StrTrim(paste(ifelse(txt=="", "", connect), paste(vn, collapse=sep), ""), method="left")
+      if(connect == "-" & .GetModTxt() == "\n")
+        txt <- paste(" . - ", txt)
+      
+      tcltk::tkinsert(tfModx, "insert", txt, "notwrapped")
     }
   }
 
@@ -285,6 +287,7 @@ ModelDlg <- function(x, ...){
   myfont <- tcltk::tkfont.create(family = fam, size = size)
   mySerfont <- tcltk::tkfont.create(family = "Times", size = size)
   
+  tfmodtype <- tcltk::tclVar("")
   tfmodx <- tcltk::tclVar("")
   tflhs <- tcltk::tclVar("")
   tffilter <- tcltk::tclVar("")
@@ -322,9 +325,15 @@ ModelDlg <- function(x, ...){
 
 
   OnOK <- function() {
-    assign("modx", paste(
+    if(tcltk::tclvalue(tfmodtype)=="")
+      modelx <- "%s"
+    else
+      modelx <- models[tcltk::tclvalue(tfmodtype)]
+    
+    assign("modx", gettextf(modelx, paste(
       DescTools::StrTrim(tcltk::tclvalue(tflhs)), " ~ ",
-      DescTools::StrTrim(.GetModTxt()), ", data=", xname, sep=""), envir = e1)
+      DescTools::StrTrim(.GetModTxt()), ", data=", xname, sep="")), envir = e1)
+    
     tcltk::tkdestroy(root)
   }
 
@@ -419,14 +428,32 @@ ModelDlg <- function(x, ...){
   frmModel <- tcltk::tkwidget(content, "labelframe", text = "Model:",
                               fg = "black", padx = 10, pady = 10, font = myfont)
 
-  tfLHS <- tcltk::tkentry(frmModel, textvariable=tflhs, bg="white")
+  # get the model list from the options
+  models <- getOption("DTAmodels", default = options(DTAmodels = list(
+                "linear regression (OLS)" = "r.lm <- lm(%s)"
+                ,"logistic regression" = 'r.logit <- glm(%s, fitfn="binomial")'
+                 )))
+            
+  
+  
+  tfComboModel <- ttkcombobox(frmModel,
+                              values = if(!is.null(models)) names(models) else "",
+                              textvariable = tfmodtype,  # font = myfont, 
+                              state = "normal",     # or "readonly"
+                              justify = "left", width=30)
+  
+  tfLHS <- tcltk::tkentry(frmModel, textvariable=tflhs, bg="white",  width=45)
   tfModx <- tcltk::tktext(frmModel, bg="white", height=20, width=70, wrap="word", padx=7, pady=5, font=myfont)
-  tcltk::tkgrid(tfLHS, column=0, row=0, pady=10, sticky="nwes")
+  tcltk::tkgrid(tfLHS, column=0, row=0, pady=10, sticky="nws")
+  tcltk::tkgrid(tfComboModel, column=0, row=0, pady=10, sticky="e")
   tcltk::tkgrid(tcltk::tklabel(frmModel, text="~"), row=1, sticky="w")
   tcltk::tkgrid(tfModx, column=0, row=2, pady=10, sticky="nws")
   if(!all(is.na(mod_x)))
     tcltk::tkinsert(tfModx, "insert", mod_x, "notwrapped")
 
+
+  
+  
   # root
   tfButOK = tcltk::tkbutton(content, text="OK", command=OnOK, width=6)
   tfButCanc = tcltk::tkbutton(content, text="Cancel", width=7,
@@ -651,6 +678,22 @@ SelectVarDlg.data.frame <- function(x, ...) {
 }
 
 
+SelectDlgBookmark <- function(x, ...){
+  
+  # should we use GetCurrWrd() here??
+  wrd <- DescTools::DescToolsOptions("lastWord")
+  
+  wbms <- wrd[["ActiveDocument"]][["Bookmarks"]]
+  if (wbms$count() > 0) {
+    bmnames <- sapply(seq(wbms$count()), function(i) wbms[[i]]$name())
+  }
+  
+  sel <- SelectVarDlg.default(x = bmnames, ...)
+  
+  # sel comes as c("bm1")
+  WrdGoto(name = eval(parse(text = sel))[1])
+  
+}
 
 
 
