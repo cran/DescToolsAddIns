@@ -1,8 +1,9 @@
-472b2ceb2cf5819cc9f00f27dda5e078 *DESCRIPTION
-10f74abeb0597032bb37112447aa8fa4 *NAMESPACE
-495e071f2ca3fca4ed6ee36057413330 *NEWS
-9376373aebcd475318373e5dbdddfd35 *R/AddIns.R
-3eeca6ab62bbdcb003e783d604696986 *R/Dialogs.R
+aec69f796dbdc8430700a9a6d9dc6ac7 *DESCRIPTION
+772fd77a58b5d35b77eb04864e7a3eba *NAMESPACE
+46b90d8e928da42ae891251bbd897da9 *NEWS
+b3c7a21ddf3b326d80ba5142003b6772 *R/AddIns.R
+541a9c7ca09ea815fbdfcf3231e4f2d2 *R/Dialogs.R
+7d90df2081296a0a2bd74488aefc0c0e *R/WdBookmarks.R
 05c8266f8b09599c3b26602c3dc9e03d *README.md
 280edadfc6c6b1e470fb7421f46f58a9 *inst/CITATION
 2299f3e1e4246a12fee6d1e0838d52ff *inst/extdata/R.ico
@@ -10,7 +11,7 @@
 ef14f78a4724e95949c4ffd884ca6ab0 *inst/extdata/SortListDesc.gif
 06e536fda18900862a4c8df8bb5df559 *inst/extdata/SortListNo.gif
 54a8efa1a5d048c9cd6061b5d5e0cea5 *inst/extdata/key.ico
-18bf286d8fc90923b434c403164bbf03 *inst/rstudio/addins.dcf
+b02e0cc5bf7954a27a32c86ade65101f *inst/rstudio/addins.dcf
 61f5d07558ec4431c33f74fdaf772f03 *man/ColPicker.Rd
 70e0c0b5a4784b3ba15403fced945c6a *man/ColorDlg.Rd
 c836e7b4d43105cdf98ab8f3a27064f5 *man/DescToolsAddIns.Rd
@@ -19,10 +20,11 @@ c836e7b4d43105cdf98ab8f3a27064f5 *man/DescToolsAddIns.Rd
 4f8bb9d6f5cc244f1a48de5d8446b2f5 *man/ModelDlg.Rd
 9f0875ca9c7615b963fc00b868e42c0a *man/PlotPch.Rd
 7651bfd97ba15b80390d23d44b8861af *man/SelectVarDlg.Rd
-c88cb1cc334738cc669db87b3ef7273e *man/WrdBookmarks.Rd
+40b56c2e75d0a67156bd64184c668d21 *man/WrdBookmarks.Rd
 084065e29477705f4e0a16b2367d2e50 *man/Xplore.Rd
 6cd1678364b35cde0d1c62de10baa986 *man/dir.choose.Rd
 7c526e62b7d9b422d1ec8ec1a5ad83d1 *man/figures/AddIns.png
+f997034f04bad376c6e56eaaa48cd283 *man/figures/BookmarkDlg.png
 43458aa108a32a0444061210b281a799 *man/figures/ModelDlg.png
 ca2282b39af2ef1ea3b001782b7c4bfe *man/figures/Shortcuts.png
 eaa3d797918eb343876e5859538a2790 *man/figures/maps.png
