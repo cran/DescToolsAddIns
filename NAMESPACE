@@ -27,6 +27,9 @@ S3method(SelectVarDlg, data.frame)
 S3method(SelectVarDlg, default)
 S3method(SelectVarDlg, factor)
 S3method(SelectVarDlg, numeric)
+S3method(SelectVarDlg, character)
+
+
 
 
 
