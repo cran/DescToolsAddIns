@@ -1,4 +1,4 @@
-556c5c59e4a18880483e33d55c6423a1 *DESCRIPTION
+360bc156dd1a57cbc3cd2f8f6bb010b3 *DESCRIPTION
 e291e26291100380fc13975c940618e9 *NAMESPACE
 bf90ddc5fe10054d5d2d5865d3fb15e6 *NEWS
 b2c62db93d52ce64cc4db5bc20f323ff *R/AddIns.R
@@ -6,7 +6,6 @@ b2c62db93d52ce64cc4db5bc20f323ff *R/AddIns.R
 53f71ef2d649ef7849188c3f79dc0ae3 *R/Dialogs.R
 594ecd51782b6a03ceed856268062792 *R/WdBookmarks.R
 05c8266f8b09599c3b26602c3dc9e03d *README.md
-e1920c00448bf871fcb41e32c87835b4 *inst/CITATION
 2299f3e1e4246a12fee6d1e0838d52ff *inst/extdata/R.ico
 0989be3b87f7e6c124f483a285feeee2 *inst/extdata/SortListAsc.gif
 ef14f78a4724e95949c4ffd884ca6ab0 *inst/extdata/SortListDesc.gif
@@ -16,7 +15,7 @@ ef14f78a4724e95949c4ffd884ca6ab0 *inst/extdata/SortListDesc.gif
 3b906f654add489bb26ad336ed152134 *man/Arrow.Rd
 61f5d07558ec4431c33f74fdaf772f03 *man/ColPicker.Rd
 70e0c0b5a4784b3ba15403fced945c6a *man/ColorDlg.Rd
-6820b0781d06e2923f3dfd9119a4652f *man/DescToolsAddIns.Rd
+0071cbc25a46ecee2e7b708ba33613d4 *man/DescToolsAddIns.Rd
 2a12c35d1d36df7c826a57db7939d167 *man/FileImportDlg.Rd
 4f6ac3167914737df12c028bc2c12a74 *man/FileOpenDlg.Rd
 4f8bb9d6f5cc244f1a48de5d8446b2f5 *man/ModelDlg.Rd
